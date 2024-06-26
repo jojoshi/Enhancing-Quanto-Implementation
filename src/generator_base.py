@@ -79,6 +79,7 @@ def generate_database(single_gate_set, two_gate_set, n, d) -> dict[str, list[Qua
     temp_db = row_db.copy()
 
     for i in range(0, d - 1):
+        print(f"{i}: ws size = {len(temp_db)}")
         for j in range(0, len(temp_db)):
             qc_base = temp_db.pop(0)
             for r in row_db:
@@ -99,6 +100,7 @@ def generate_database_pruned(single_gate_set, two_gate_set, n, d):
     db = dict()
 
     row_db = compute_row_db(single_gate_set, two_gate_set, n)
+    print("finished generating row db")
     working_set = dict()
     working_set[1] = row_db.copy()
 
@@ -109,6 +111,7 @@ def generate_database_pruned(single_gate_set, two_gate_set, n, d):
         db[str(Operator(r).data)] = [r]
 
     for i in range(2, d + 1):
+        print(f"{i}: ws size = {len(working_set[i-1])}")
         working_set[i] = list()     # Init working-set for this iteration
 
         for c in working_set[i - 1]:    # Iterate over circuits from last working set (only include optimal ones)
@@ -120,7 +123,7 @@ def generate_database_pruned(single_gate_set, two_gate_set, n, d):
                     continue
                 if cost_function.h(l_p.data) < cost_function.h((db[str(Operator(l_p).data)][-1]).data):     # Is the circuit cheaper than existing equivalents?
                     m = db[str(Operator(l_p).data)][-1]     # Get currently optimal circuit
-                    db[str(Operator(l_p))] = [l_p]          # Replace current circuit with new one
+                    db[str(Operator(l_p).data)] = [l_p]          # Replace current circuit with new one
 
                     if m in working_set[i]:
                         working_set[i].remove(m)            # Remove m if it got added this round

@@ -19,22 +19,23 @@ single_gate_set: list[Union[Operator, SingletonGate]] = [
 # Two Qubit Gate set
 two_gate_set: list[Union[Operator, SingletonControlledGate]] = [
     # PUT TWO-QUBIT-GATE DEFINITIONS HERE
-    CXGate(),
+    #CXGate(),
     # iSwapGate()
 ]
 
+# Main function
 if __name__ == '__main__':
-    n = 2   # number of qubits
-    d = 3   # max depth of the circuit
-    database = generator_base.generate_database(single_gate_set, two_gate_set, n, d)            # Original Quanto-Algorithm
+    n = 3   # number of qubits
+    d = 5   # max depth of the circuit
+    #database = generator_base.generate_database(single_gate_set, two_gate_set, n, d)            # Original Quanto-Algorithm
     database_p = generator_base.generate_database_pruned(single_gate_set, two_gate_set, n, d)   # Pruning Approach
 
     # for checking the database size
-    print(utils.calculate_possibilities(len(single_gate_set), len(two_gate_set), n, d))
+    # print(utils.calculate_possibilities(len(single_gate_set), len(two_gate_set), n, d))
 
     # Compare both databases
-    print("==========BASE==========")
-    utils.db_stats(database)
+    # print("==========BASE==========")
+    # utils.db_stats(database)
     print("==========PRUNED==========")
     utils.db_stats(database_p)
-    print(utils.check_coverage(database_p, database))
+    # print(utils.check_coverage(database_p, database))
