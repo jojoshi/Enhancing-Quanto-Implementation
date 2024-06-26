@@ -2,6 +2,7 @@ import math
 from qiskit.circuit import QuantumCircuit
 import cost_function
 
+# Calculates the number of possibilities according to Formula (1) and (2) from the Quanto paper
 def calculate_possibilities(g, t, n, d):
     res = 0
     for r in range(0, math.floor(n / 2) + 1):
@@ -10,6 +11,7 @@ def calculate_possibilities(g, t, n, d):
     return math.pow(res, d)
 
 
+# Prints the number of equivalences ant total number of circuits
 def db_stats(db: dict[str, list[QuantumCircuit]]):
     sum = 0
     max = 0
@@ -25,6 +27,7 @@ def db_stats(db: dict[str, list[QuantumCircuit]]):
     print(f"Number of Classes: {len(db.keys())}")
 
 
+# print all entries from database (text-output)
 def print_db(db: dict[str, list[QuantumCircuit]]):
     for l in db.values():
         print("====================")

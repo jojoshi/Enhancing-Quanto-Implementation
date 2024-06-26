@@ -1,5 +1,7 @@
 from qiskit.circuit import CircuitInstruction, Instruction, Qubit
 
+
+# Circuit-Depth as cost function
 def h(instructions: list[CircuitInstruction]):
     depth = dict()
     max = 0

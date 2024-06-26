@@ -6,6 +6,7 @@ from qiskit.circuit.library import *
 from qiskit.circuit.singleton import SingletonGate, SingletonControlledGate
 from qiskit.quantum_info import Operator
 
+# Single Qubit Gate set
 single_gate_set: list[Union[Operator, SingletonGate]] = [
     # PUT SINGLE-GATE DEFINITIONS HERE
     # Operator([[1, 0], [0, 1]]),
@@ -15,6 +16,7 @@ single_gate_set: list[Union[Operator, SingletonGate]] = [
     #YGate()
 ]
 
+# Two Qubit Gate set
 two_gate_set: list[Union[Operator, SingletonControlledGate]] = [
     # PUT TWO-QUBIT-GATE DEFINITIONS HERE
     CXGate(),
@@ -22,16 +24,15 @@ two_gate_set: list[Union[Operator, SingletonControlledGate]] = [
 ]
 
 if __name__ == '__main__':
-    n = 2
-    d = 3
-    database = generator_base.generate_database(single_gate_set, two_gate_set, n, d)
-    database_p = generator_base.generate_database_pruned(single_gate_set, two_gate_set, n, d)
+    n = 2   # number of qubits
+    d = 3   # max depth of the circuit
+    database = generator_base.generate_database(single_gate_set, two_gate_set, n, d)            # Original Quanto-Algorithm
+    database_p = generator_base.generate_database_pruned(single_gate_set, two_gate_set, n, d)   # Pruning Approach
 
+    # for checking the database size
     print(utils.calculate_possibilities(len(single_gate_set), len(two_gate_set), n, d))
-    # utils.print_db(database)
-    # e = list(database.values())[20][0]
-    # print(e.draw(output="text"))
-    # print(cost_function.h(e.data))
+
+    # Compare both databases
     print("==========BASE==========")
     utils.db_stats(database)
     print("==========PRUNED==========")

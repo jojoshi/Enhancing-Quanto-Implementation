@@ -3,6 +3,8 @@ from qiskit import QuantumCircuit
 from qiskit.quantum_info import Operator
 import cost_function
 
+
+# Compute all possible column circuits
 def compute_row_db(single_gate_set, two_gate_set, qubits) -> list[QuantumCircuit]:
     db: list[QuantumCircuit] = []
 
@@ -69,6 +71,7 @@ def enumerate_single_qubit_gates(db: list[QuantumCircuit], single_gate_set, qc: 
         enumerate_single_qubit_gates(db, single_gate_set, new_qc, n - 1, b)
 
 
+# generate un-pruned database with n qubits and depth d based in single- and two-qubit gate-set
 def generate_database(single_gate_set, two_gate_set, n, d) -> dict[str, list[QuantumCircuit]]:
     db = dict()
 
@@ -91,6 +94,7 @@ def generate_database(single_gate_set, two_gate_set, n, d) -> dict[str, list[Qua
     return db
 
 
+# pruning approach with n qubits and max depth of d
 def generate_database_pruned(single_gate_set, two_gate_set, n, d):
     db = dict()
 
