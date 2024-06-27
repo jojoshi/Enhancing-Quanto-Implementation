@@ -1,10 +1,11 @@
 from typing import Union
 import generator
 import utils
-import cost_function
+
 from qiskit.circuit.library import *
 from qiskit.circuit.singleton import SingletonGate, SingletonControlledGate
 from qiskit.quantum_info import Operator
+from qiskit.circuit import QuantumCircuit
 
 # Single Qubit Gate set
 single_gate_set: list[Union[Operator, SingletonGate]] = [
@@ -39,3 +40,12 @@ if __name__ == '__main__':
     print("==========PRUNED==========")
     utils.db_stats(database_p)
     print(f"Deviations: {utils.check_coverage(database_p, database)}")
+
+    # DATABASE LOOKUP
+    # circuit = QuantumCircuit(n)
+    # circuit.append(instruction=XGate(),
+    #                qargs=[0])
+    # circuit.append(instruction=XGate(),
+    #                qargs=[1])
+    # k = utils.lookup(circuit, database_p);
+    # print(k.draw(output="text"))

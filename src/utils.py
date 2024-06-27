@@ -1,5 +1,6 @@
 import math
 from qiskit.circuit import QuantumCircuit
+from qiskit.quantum_info import Operator
 import cost_function
 
 # Calculates the number of possibilities according to Formula (1) and (2) from the Quanto paper
@@ -54,3 +55,14 @@ def check_coverage(src: dict[str, list[QuantumCircuit]], dst: dict[str, list[Qua
             not_included += 1
             print(src[s][0])
     return not_included
+
+def lookup(c: QuantumCircuit, database: dict[str, list[QuantumCircuit]]):
+    key = str(Operator(c).data)
+    identities = database[key]
+
+    min = identities[0]
+
+    for i in identities:
+        if cost_function.h(i) < cost_function.h(min):
+            min = i
+    return min
