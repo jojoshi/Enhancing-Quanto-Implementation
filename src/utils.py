@@ -15,15 +15,21 @@ def calculate_possibilities(g, t, n, d):
 def db_stats(db: dict[str, list[QuantumCircuit]]):
     sum = 0
     max = 0
+    lines = 0
     print("==========DB-STATS==========")
+    print("hash: number of circuits")
     for k in db.keys():
         l = len(db[k])
         print(f"{hash(k)}: {l}")
         if l > max: max = l
         sum += l
+        if lines > 8:
+            print("...")
+            break
+        lines += 1
     print("--------------------")
-    print(f"Sum: {sum}")
-    print(f"Max: {max}")
+    print(f"Total: {sum}")
+    print(f"Max. circuits per entry: {max}")
     print(f"Number of Classes: {len(db.keys())}")
 
 
